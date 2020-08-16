@@ -1,9 +1,5 @@
 let data = [8, 2, 5, 7, 9, 3, 1, 11];
 
-for (let i = 0; i < data.length - 1; i++) {
-  console.log(data[i]);
-}
-
 //冒泡排序
 function bubbleSort(data) {
   for (let i = 0; i < data.length - 1; i++) {
@@ -52,4 +48,47 @@ function selectionSort(data) {
   }
 }
 
+function inSertSort() {
+  for (let i = 1; i < data.length; i++) {
+    let temp = data[i];
+    let j = null; //要插入的位置下标
+    //求出插入位置的坐标
+    for (j = i - 1; j >= 0; j--) {
+      if (data[j] > temp) {
+        data[j + 1] = data[j];
+      } else {
+        break;
+      }
+    }
+    data[j + 1] = temp;
+  }
+}
+
+function shellSort(data) {
+  let gap = 1;
+  while (gap < data.length) {
+    gap = gap * 3 + 1;
+  } //求出最大区间
+  while (gap > 0) {
+    for (let i = gap; i < data.length; i++) {
+      let temp = data[i];
+      let j = i - gap;
+      // while (j >= 0 && data[j] > temp) {
+      //   data[j + gap] = data[j];
+      //   j -= gap;
+      // }
+      // data[j + gap] = temp;
+      for (; j >= 0; j -= gap) {
+        if (data[j] > temp) {
+          data[j + gap] = data[j];
+        } else {
+          break;
+        }
+      }
+      data[j + gap] = temp;
+    }
+    gap = Math.floor(gap / 3); //缩小区间值，进行下一轮排序
+  }
+}
+shellSort(data);
 console.log(data);
